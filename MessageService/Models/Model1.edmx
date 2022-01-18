@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MessageServiceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblMessageLog">
+          <Key>
+            <PropertyRef Name="seq" />
+          </Key>
+          <Property Name="seq" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="message" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="userid_tel" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="token" Type="varchar" MaxLength="100" />
+          <Property Name="is_success" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSMSLog">
+          <Key>
+            <PropertyRef Name="seq" />
+          </Key>
+          <Property Name="seq" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="phone_no" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="message" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="is_success" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSys">
+          <Key>
+            <PropertyRef Name="seq" />
+          </Key>
+          <Property Name="seq" Type="int" Nullable="false" />
+          <Property Name="redirect_uri" Type="nvarchar" MaxLength="100" />
+          <Property Name="client_id" Type="nvarchar" MaxLength="100" />
+          <Property Name="secrete" Type="nvarchar" MaxLength="100" />
+          <Property Name="iii_uri" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblTokenUpdateLog">
+          <Key>
+            <PropertyRef Name="seq" />
+          </Key>
+          <Property Name="seq" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="userid" Type="nvarchar" MaxLength="20" />
+          <Property Name="name" Type="nvarchar" MaxLength="20" />
+          <Property Name="token" Type="varchar" MaxLength="100" />
+          <Property Name="cmd" Type="varchar" MaxLength="10" />
+          <Property Name="is_success" Type="bit" Nullable="false" />
+          <Property Name="error_message" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityContainer Name="MessageServiceDBModelStoreContainer">
+          <EntitySet Name="tblMessageLog" EntityType="Self.tblMessageLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSMSLog" EntityType="Self.tblSMSLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSys" EntityType="Self.tblSys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTokenUpdateLog" EntityType="Self.tblTokenUpdateLog" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MessageServiceDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblSys">
+          <Key>
+            <PropertyRef Name="seq" />
+          </Key>
+          <Property Name="seq" Type="Int32" Nullable="false" />
+          <Property Name="redirect_uri" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="client_id" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="secrete" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="iii_uri" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="MessageServiceDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblSys" EntityType="Self.tblSys" />
+          <EntitySet Name="tblTokenUpdateLog" EntityType="MessageServiceDBModel.tblTokenUpdateLog" />
+          <EntitySet Name="tblMessageLog" EntityType="MessageServiceDBModel.tblMessageLog" />
+          <EntitySet Name="tblSMSLog" EntityType="MessageServiceDBModel.tblSMSLog" />
+        </EntityContainer>
+        <EntityType Name="tblTokenUpdateLog">
+          <Key>
+            <PropertyRef Name="seq" />
+          </Key>
+          <Property Name="seq" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="userid" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="token" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cmd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="is_success" Type="Boolean" Nullable="false" />
+          <Property Name="error_message" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblMessageLog">
+          <Key>
+            <PropertyRef Name="seq" />
+          </Key>
+          <Property Name="seq" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="message" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="userid_tel" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="token" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="is_success" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSMSLog">
+          <Key>
+            <PropertyRef Name="seq" />
+          </Key>
+          <Property Name="seq" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="phone_no" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="message" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="is_success" Type="Boolean" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MessageServiceDBModelStoreContainer" CdmEntityContainer="MessageServiceDBEntities">
+          <EntitySetMapping Name="tblSys">
+            <EntityTypeMapping TypeName="MessageServiceDBModel.tblSys">
+              <MappingFragment StoreEntitySet="tblSys">
+                <ScalarProperty Name="iii_uri" ColumnName="iii_uri" />
+                <ScalarProperty Name="seq" ColumnName="seq" />
+                <ScalarProperty Name="redirect_uri" ColumnName="redirect_uri" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="secrete" ColumnName="secrete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTokenUpdateLog">
+            <EntityTypeMapping TypeName="MessageServiceDBModel.tblTokenUpdateLog">
+              <MappingFragment StoreEntitySet="tblTokenUpdateLog">
+                <ScalarProperty Name="error_message" ColumnName="error_message" />
+                <ScalarProperty Name="is_success" ColumnName="is_success" />
+                <ScalarProperty Name="cmd" ColumnName="cmd" />
+                <ScalarProperty Name="token" ColumnName="token" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="seq" ColumnName="seq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMessageLog">
+            <EntityTypeMapping TypeName="MessageServiceDBModel.tblMessageLog">
+              <MappingFragment StoreEntitySet="tblMessageLog">
+                <ScalarProperty Name="is_success" ColumnName="is_success" />
+                <ScalarProperty Name="token" ColumnName="token" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="userid_tel" ColumnName="userid_tel" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="seq" ColumnName="seq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSMSLog">
+            <EntityTypeMapping TypeName="MessageServiceDBModel.tblSMSLog">
+              <MappingFragment StoreEntitySet="tblSMSLog">
+                <ScalarProperty Name="is_success" ColumnName="is_success" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="phone_no" ColumnName="phone_no" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="seq" ColumnName="seq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
