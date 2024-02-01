@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -147,14 +148,14 @@ namespace MessageService.Controllers
         public string RegisterUrl(string userid,string name)
         {
 
-            LineStateData line_state_data = new LineStateData() { userid =userid, name=name };
+            LineStateData line_state_data = new LineStateData() { userid =userid, name=name , timestamp=DateTime.Now};
             string s = Newtonsoft.Json.JsonConvert.SerializeObject(line_state_data);
              var state_enc= HttpUtility.UrlEncode( aesEncryptBase64(s,key,ivkey));
             return $"https://notify-bot.line.me/oauth/authorize?response_type=code&scope=notify&response_mode=form_post&client_id={client_id}&redirect_uri={redirect_url}&state={state_enc}";
         }
 
         [HttpPost]
-        public async Task<ResultMessage> Callback([FromBody]Models.RegisterCallBackData value)
+        public async Task< HttpResponseMessage> Callback([FromBody]Models.RegisterCallBackData value)
         {
             
             var dec_str =  aesDecryptBase64(value.state, key, ivkey);
@@ -169,24 +170,74 @@ namespace MessageService.Controllers
             }
             catch(Exception ex)
             {
-                 return new ResultMessage() { IsSuccess = false, Message = "state 解密失敗" };
+                
+                 return Html_Response( new ResultMessage() { IsSuccess = false, Message = "state 解密失敗" });
             }
                 
             if(DateTime.Now.Subtract(lsd.timestamp)> TimeSpan.FromHours(24))
             {
-                return new ResultMessage() { IsSuccess = false, Message = "url 綁定逾時" };
+                return Html_Response( new ResultMessage() { IsSuccess = false, Message = "url 綁定逾時" });
             }
 
             var token = Token(value.code);
             if (token == null)
-                return new ResultMessage() { IsSuccess = false, Message = "連動失敗" };
+                return Html_Response( new ResultMessage() { IsSuccess = false, Message = "連動失敗" });
             await UpdateToken(lsd.userid, lsd.name, token);
 
-            return new ResultMessage() { IsSuccess=true,Message="連動成功" };
+            return Html_Response( new ResultMessage() { IsSuccess=true,Message="連動成功" });
         }
 
-   
-       
+        public HttpResponseMessage Html_Response(ResultMessage result)
+        {
+            string header = "<!DOCTYPE html>" +
+            "<html>" +
+            "<head>" +
+                "<meta charset = \"utf-8\" />" +
+
+                "<title></title>" +
+             "</head>" +
+             "<body>";
+            string html=  $"<font size=\"7\" color=\"{(result.IsSuccess?"black":"red")}\">{result.Message}</font>";
+            var response = new HttpResponseMessage();
+            response.Content = new StringContent(header+html+"</body></html>");
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
+            return response;
+        }
+
+        //[HttpPost]
+        //public async Task<ResultMessage> Callback([FromBody]Models.RegisterCallBackData value)
+        //{
+
+        //    var dec_str = aesDecryptBase64(value.state, key, ivkey);
+        //    LineStateData lsd = null;
+        //    try
+        //    {
+        //        lsd = Newtonsoft.Json.JsonConvert.DeserializeObject<LineStateData>(dec_str);
+        //        if (lsd == null)
+        //        {
+        //            throw new Exception("state 解密失敗");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new ResultMessage() { IsSuccess = false, Message = "state 解密失敗" };
+        //    }
+
+        //    if (DateTime.Now.Subtract(lsd.timestamp) > TimeSpan.FromHours(24))
+        //    {
+        //        return new ResultMessage() { IsSuccess = false, Message = "url 綁定逾時" };
+        //    }
+
+        //    var token = Token(value.code);
+        //    if (token == null)
+        //        return new ResultMessage() { IsSuccess = false, Message = "連動失敗" };
+        //    await UpdateToken(lsd.userid, lsd.name, token);
+
+        //    return new ResultMessage() { IsSuccess = true, Message = "連動成功" };
+        //}
+
+
+
         [HttpGet]
       
         public LineNotifySDK.Struct.GetStatusResponse Status(string token)
@@ -335,7 +386,7 @@ namespace MessageService.Controllers
                 WebClient client = new WebClient();
                 client.Encoding = Encoding.UTF8;
 
-                string urlstr = iii_uri+$"/updateToken?accessToken={token}&userid={userid}";
+                string urlstr = iii_uri+$"/updateToken?accessToken={token}&userid={userid}&validKey=w96@u04TaiPower";
                  var res= await client.DownloadStringTaskAsync(new Uri(urlstr));
                 IIIResult result = Newtonsoft.Json.JsonConvert.DeserializeObject<IIIResult>(res);
                 success = (result.code == 200);
@@ -345,7 +396,7 @@ namespace MessageService.Controllers
             catch(Exception ex)
             {
                 success = false;
-                errmsg = ex.Message;
+                errmsg =  "iii response:"+ex.Message;
 
             }
 
