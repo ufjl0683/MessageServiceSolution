@@ -12,6 +12,8 @@ namespace test
     {
         static void Main(string[] args)
         {
+            string m=null;
+            Console.WriteLine(string.IsNullOrEmpty(m));
             //var enc = aesEncryptBase64("{userid,name}","0988163835","TaiPower");
             //var dec=aesDecryptBase64(enc,"0988163835","TaiPower");
 
@@ -25,7 +27,7 @@ namespace test
 
             //}
         //    for(int i=0;i<5;i++)
-            SendSMS("0988163835", $"中文輸入");
+         //   SendSMS("0988163835", $"中文輸入");
                
 
             Console.ReadLine();

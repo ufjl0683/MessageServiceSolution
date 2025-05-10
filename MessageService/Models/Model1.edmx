@@ -17,6 +17,7 @@
           <Property Name="name" Type="nvarchar" MaxLength="50" />
           <Property Name="token" Type="varchar" MaxLength="100" />
           <Property Name="is_success" Type="bit" Nullable="false" />
+          <Property Name="err_msg" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tblSMSLog">
           <Key>
@@ -102,6 +103,7 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="token" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="is_success" Type="Boolean" Nullable="false" />
+          <Property Name="err_msg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblSMSLog">
           <Key>
@@ -147,6 +149,7 @@
           <EntitySetMapping Name="tblMessageLog">
             <EntityTypeMapping TypeName="MessageServiceDBModel.tblMessageLog">
               <MappingFragment StoreEntitySet="tblMessageLog">
+                <ScalarProperty Name="err_msg" ColumnName="err_msg" />
                 <ScalarProperty Name="is_success" ColumnName="is_success" />
                 <ScalarProperty Name="token" ColumnName="token" />
                 <ScalarProperty Name="name" ColumnName="name" />

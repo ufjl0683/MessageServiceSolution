@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F01AA9DB-E769-4F6A-902A-373C5CA34341}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LineMessagingAPISDK</RootNamespace>
+    <AssemblyName>LineMessagingAPISDK</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="LineClient.cs" />
+    <Compile Include="Models\Activity.cs" />
+    <Compile Include="Models\AudioMessage.cs" />
+    <Compile Include="Models\BaseSize.cs" />
+    <Compile Include="Models\Beacon.cs" />
+    <Compile Include="Models\BeaconType.cs" />
+    <Compile Include="Models\ButtonsTemplate.cs" />
+    <Compile Include="Models\CarouselTemplate.cs" />
+    <Compile Include="Models\ConfirmTemplate.cs" />
+    <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\EventType.cs" />
+    <Compile Include="Models\ImageMapAction.cs" />
+    <Compile Include="Models\ImageMapActionType.cs" />
+    <Compile Include="Models\ImageMapArea.cs" />
+    <Compile Include="Models\ImageMapMessage.cs" />
+    <Compile Include="Models\ImageMessage.cs" />
+    <Compile Include="Models\LocationMessage.cs" />
+    <Compile Include="Models\Media.cs" />
+    <Compile Include="Models\MessageImageMapAction.cs" />
+    <Compile Include="Models\MessageType.cs" />
+    <Compile Include="Models\MulticastMessage.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\MessageTemplateAction.cs" />
+    <Compile Include="Models\Postback.cs" />
+    <Compile Include="Models\PostbackTemplateAction.cs" />
+    <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\PushMessage.cs" />
+    <Compile Include="Models\ReplyMessage.cs" />
+    <Compile Include="Models\Source.cs" />
+    <Compile Include="Models\SourceType.cs" />
+    <Compile Include="Models\StickerMessage.cs" />
+    <Compile Include="Models\Template.cs" />
+    <Compile Include="Models\TemplateAction.cs" />
+    <Compile Include="Models\TemplateActionType.cs" />
+    <Compile Include="Models\TemplateColumn.cs" />
+    <Compile Include="Models\TemplateMessage.cs" />
+    <Compile Include="Models\TemplateType.cs" />
+    <Compile Include="Models\TextMessage.cs" />
+    <Compile Include="Models\UriImageMapAction.cs" />
+    <Compile Include="Models\UriTemplateAction.cs" />
+    <Compile Include="Models\VideoMessage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validators\ItemCountsAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.3\lib\netstandard1.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Primitives, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ComponentModel.Primitives.4.3.0\lib\netstandard1.0\System.ComponentModel.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.TypeConverter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ComponentModel.TypeConverter.4.3.0\lib\netstandard1.0\System.ComponentModel.TypeConverter.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\netstandard1.1\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

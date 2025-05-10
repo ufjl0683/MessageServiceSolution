@@ -1,0 +1,4 @@
+﻿--ngrok https proxy  url
+ngrok config add-authtoken 2nHgPcVEsWxPAIy30rDV6OBTiyi_2aq7W2d64jbR5gxCHssYs 
+ngrok http 1590 --host-header="localhost:1590"
+取得 webhook url

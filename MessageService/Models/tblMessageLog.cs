@@ -22,5 +22,6 @@ namespace TaiPower.Models
         public string name { get; set; }
         public string token { get; set; }
         public bool is_success { get; set; }
+        public string err_msg { get; set; }
     }
 }

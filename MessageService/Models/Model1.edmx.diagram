@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="MessageServiceDBModel.tblSys" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MessageServiceDBModel.tblTokenUpdateLog" Width="1.5" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="MessageServiceDBModel.tblMessageLog" Width="1.5" PointX="0.75" PointY="2.875" />
-        <EntityTypeShape EntityType="MessageServiceDBModel.tblSMSLog" Width="1.5" PointX="3.75" PointY="3.875" />
+        <EntityTypeShape EntityType="MessageServiceDBModel.tblSMSLog" Width="1.5" PointX="6.625" PointY="2.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
